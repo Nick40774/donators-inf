@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="vi" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sổ Vàng Tri Ân - 60 Năm Thành Lập Trường THPT Bá Thước (1966 - 2026)</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            50: '#f0f7ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        navy: {
+                            800: '#1e3a8a',
+                            900: '#0f172a',
+                        },
+                        gold: {
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 40%, #dbeafe 70%, #e0e7ff 100%);
+            color: #0f172a;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .font-serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* HTML5 Canvas Background overlay */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Soft Pastel Glassmorphism Cards */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(186, 230, 253, 0.8);
+            box-shadow: 0 10px 30px -5px rgba(14, 165, 233, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(191, 219, 254, 0.7);
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.05);
+        }
+
+        /* KEYFRAME PULSING ANIMATIONS BETWEEN DARKER & LIGHTER SHADES */
+        
+        /* PURPLE TIER (> 10M VND) */
+        @keyframes pulsePurple {
+            0%, 100% {
+                background-color: #5b21b6; /* Darker Purple */
+                border-color: #7c3aed;
+                box-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
+            }
+            50% {
+                background-color: #a855f7; /* Lighter Purple */
+                border-color: #d8b4fe;
+                box-shadow: 0 0 18px rgba(168, 85, 247, 0.6);
+            }
+        }
+        .tier-purple {
+            animation: pulsePurple 3s infinite ease-in-out;
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+
+        /* RED TIER (== 10M VND) */
+        @keyframes pulseRed {
+            0%, 100% {
+                background-color: #991b1b; /* Darker Crimson */
+                border-color: #dc2626;
+                box-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+            }
+            50% {
+                background-color: #ef4444; /* Lighter Red */
+                border-color: #fca5a5;
+                box-shadow: 0 0 18px rgba(239, 68, 68, 0.6);
+            }
+        }
+        .tier-red {
+            animation: pulseRed 3s infinite ease-in-out;
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+
+        /* YELLOW TIER (>= 5M and < 10M VND) */
+        @keyframes pulseYellow {
+            0%, 100% {
+                background-color: #b45309; /* Darker Amber */
+                border-color: #d97706;
+                box-shadow: 0 0 10px rgba(217, 119, 6, 0.4);
+            }
+            50% {
+                background-color: #f59e0b; /* Lighter Gold Yellow */
+                border-color: #fde047;
+                box-shadow: 0 0 18px rgba(245, 158, 11, 0.6);
+            }
+        }
+        .tier-yellow {
+            animation: pulseYellow 3.2s infinite ease-in-out;
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+
+        /* BLUE TIER (>= 3M and < 5M VND) */
+        @keyframes pulseBlue {
+            0%, 100% {
+                background-color: #1e40af; /* Darker Royal Navy */
+                border-color: #2563eb;
+                box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+            }
+            50% {
+                background-color: #3b82f6; /* Lighter Sky Blue */
+                border-color: #93c5fd;
+                box-shadow: 0 0 18px rgba(59, 130, 246, 0.6);
+            }
+        }
+        .tier-blue {
+            animation: pulseBlue 3.5s infinite ease-in-out;
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+
+        /* GREEN TIER (>= 1M and < 3M VND) */
+        @keyframes pulseGreen {
+            0%, 100% {
+                background-color: #065f46; /* Darker Emerald */
+                border-color: #059669;
+                box-shadow: 0 0 10px rgba(5, 150, 105, 0.4);
+            }
+            50% {
+                background-color: #10b981; /* Lighter Jade Green */
+                border-color: #6ee7b7;
+                box-shadow: 0 0 18px rgba(16, 185, 129, 0.6);
+            }
+        }
+        .tier-green {
+            animation: pulseGreen 3.8s infinite ease-in-out;
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+
+        /* DEFAULT TIER (< 1M VND) */
+        .tier-default {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #334155 !important;
+        }
+
+        /* Custom Scrollbar for smooth experience */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0f2fe;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #38bdf8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0284c7;
+        }
+
+        @media print {
+            #bg-canvas, .no-print {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .glass-panel, .glass-card {
+                background: none !important;
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen relative flex flex-col justify-between selection:bg-pastel-300 selection:text-navy-900">
+
+    <!-- Soft Pastel Animated Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- HEADER & LOGO BANNER SECTION -->
+    <header class="relative border-b border-pastel-200 glass-panel py-6 px-4 sm:px-8 shadow-sm z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <!-- Logo & Title Group -->
+            <div class="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+                <!-- User Provided Logo 'aaaa_2.jpg' -->
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-pastel-400 via-sky-300 to-indigo-300 rounded-2xl blur opacity-70 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden bg-white p-1.5 shadow-md flex items-center justify-center border border-pastel-200">
+                        <img id="school-logo" src="aaaa_2.jpg" alt="Logo 60 Năm THPT Bá Thước" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300" onerror="this.onerror=null; this.src='https://placehold.co/200x200/dbeafe/1e3a8a?text=THPT+B%C3%A1+Th%C6%B0%E1%BB%9Bc';">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pastel-100 border border-pastel-300 text-pastel-800 text-xs font-bold uppercase tracking-widest mb-2 shadow-sm">
+                        <i class="fa-solid fa-award text-amber-500"></i> Sổ Vàng Vinh Danh & Tri Ân
+                    </div>
+                    <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold font-serif-title text-navy-800 leading-tight">
+                        TRƯỜNG THPT BÁ THƯỚC
+                    </h1>
+                    <p class="text-sm sm:text-base font-bold text-pastel-700 mt-0.5 tracking-wide">
+                        LỄ KỶ NIỆM 60 NĂM THÀNH LẬP (1966 - 2026)
+                    </p>
+                    <p class="text-xs text-slate-600 italic mt-1 flex items-center justify-center sm:justify-start gap-1.5 font-medium">
+                        <i class="fa-solid fa-quote-left text-pastel-400 text-xs"></i> Tự hào truyền thống - Vững bước tương lai <i class="fa-solid fa-quote-right text-pastel-400 text-xs"></i>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Header Quick Action Controls -->
+            <div class="flex flex-wrap items-center justify-center gap-3 no-print">
+                <button onclick="openAddModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-pastel-600 to-navy-800 hover:from-pastel-700 hover:to-navy-900 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center gap-2 transform active:scale-95">
+                    <i class="fa-solid fa-plus-circle"></i>
+                    <span>Thêm Tài Trợ Mới</span>
+                </button>
+                <button onclick="exportToCSV()" class="px-3.5 py-2.5 rounded-xl bg-white hover:bg-pastel-50 text-slate-700 border border-pastel-200 text-sm font-semibold transition-all flex items-center gap-2 shadow-sm hover:border-pastel-400">
+                    <i class="fa-solid fa-file-excel text-emerald-600"></i>
+                    <span class="hidden sm:inline">Xuất CSV</span>
+                </button>
+                <button onclick="window.print()" class="px-3.5 py-2.5 rounded-xl bg-white hover:bg-pastel-50 text-slate-700 border border-pastel-200 text-sm font-semibold transition-all flex items-center gap-2 shadow-sm hover:border-pastel-400">
+                    <i class="fa-solid fa-print text-sky-600"></i>
+                    <span class="hidden sm:inline">In Báo Cáo</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow space-y-8">
+
+        <!-- PROMINENT THANK YOU & GRATITUDE SECTION (THƯ CẢM ƠN & TRI ÂN) -->
+        <section class="glass-panel rounded-3xl p-6 sm:p-8 border-2 border-pastel-300 relative overflow-hidden shadow-lg">
+            <div class="absolute top-0 right-0 -mr-12 -mt-12 w-48 h-48 bg-gradient-to-br from-pastel-200/40 to-indigo-200/30 rounded-full blur-2xl pointer-events-none"></div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-6 relative z-10">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white p-2 shadow-md border border-pastel-200 flex-shrink-0 flex items-center justify-center">
+                    <img src="aaaa_2.jpg" alt="Logo Kỷ Niệm" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/dbeafe/1e3a8a?text=BT';">
+                </div>
+
+                <div class="space-y-2 text-center md:text-left">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold uppercase tracking-wider">
+                        <i class="fa-solid fa-heart text-red-500"></i> Thư Tỏ Lòng Tri Ân Deepest Gratitude
+                    </div>
+                    <h2 class="text-lg sm:text-xl md:text-2xl font-bold font-serif-title text-navy-800">
+                        LỜI CẢM ƠN CHÂN THÀNH TỪ BGH TRƯỜNG THPT BÁ THƯỚC
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
+                        Kính gửi quý Cựu học sinh các thời kỳ, quý Thầy Cô giáo, các cơ quan, đoàn thể và các nhà tài trợ hảo tâm.
+                        Hướng tới <strong>Lễ kỷ niệm 60 năm thành lập trường THPT Bá Thước (1966 - 2026)</strong>, Ban Giám hiệu nhà trường xin trân trọng gửi lời cảm ơn sâu sắc nhất tới sự quan tâm, đóng góp quý báu cả về vật chất lẫn tinh thần của quý vị. Những tình cảm ấm áp và sự hỗ trợ thiết thực này là nguồn động viên to lớn giúp nhà trường tiếp tục giữ vững truyền thống "Dạy tốt - Học tốt", xây dựng môi trường giáo dục ngày càng hiện đại và vững bước vào tương lai.
+                    </p>
+                    <div class="pt-1 flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs font-semibold text-pastel-800">
+                        <span><i class="fa-solid fa-check-circle text-emerald-500 mr-1"></i> Minh bạch thông tin</span>
+                        <span><i class="fa-solid fa-check-circle text-emerald-500 mr-1"></i> Cập nhật liên tục</span>
+                        <span><i class="fa-solid fa-check-circle text-emerald-500 mr-1"></i> Lưu danh Sổ Vàng Truyền Thống</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KPI METRICS DASHBOARD -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <!-- Total Money Collected Card -->
+            <div class="glass-card rounded-2xl p-5 border-l-4 border-l-amber-500 relative overflow-hidden group hover:shadow-md transition-all">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Tổng Tiền Đã Tài Trợ</span>
+                    <span class="p-2 rounded-xl bg-amber-100 text-amber-700"><i class="fa-solid fa-vault"></i></span>
+                </div>
+                <div id="stat-total-money" class="text-2xl sm:text-3xl font-black text-amber-700 mt-2 tracking-tight">0 đ</div>
+                <div class="text-xs text-slate-500 mt-1 flex items-center gap-1 font-medium">
+                    <i class="fa-solid fa-circle-check text-emerald-500 text-[10px]"></i> Cập nhật thời gian thực
+                </div>
+            </div>
+
+            <!-- Donors Count Card -->
+            <div class="glass-card rounded-2xl p-5 border-l-4 border-l-sky-500 relative overflow-hidden group hover:shadow-md transition-all">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Số Lượng Nhà Tài Trợ</span>
+                    <span class="p-2 rounded-xl bg-sky-100 text-sky-700"><i class="fa-solid fa-users"></i></span>
+                </div>
+                <div id="stat-total-donors" class="text-2xl sm:text-3xl font-black text-sky-800 mt-2 tracking-tight">0</div>
+                <div class="text-xs text-slate-500 mt-1 font-medium">Tập thể, Cá nhân & Niên khóa</div>
+            </div>
+
+            <!-- Items Donated Card -->
+            <div class="glass-card rounded-2xl p-5 border-l-4 border-l-emerald-500 relative overflow-hidden group hover:shadow-md transition-all">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Hiện Vật & Quà Tặng</span>
+                    <span class="p-2 rounded-xl bg-emerald-100 text-emerald-700"><i class="fa-solid fa-box-open"></i></span>
+                </div>
+                <div id="stat-total-items" class="text-2xl sm:text-3xl font-black text-emerald-700 mt-2 tracking-tight">0</div>
+                <div class="text-xs text-slate-500 mt-1 font-medium">Ấm chén, Ghế đá & Thiết bị</div>
+            </div>
+
+            <!-- Highest Single Donation Card -->
+            <div class="glass-card rounded-2xl p-5 border-l-4 border-l-purple-500 relative overflow-hidden group hover:shadow-md transition-all">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Mức Đóng Góp Cao Nhất</span>
+                    <span class="p-2 rounded-xl bg-purple-100 text-purple-700"><i class="fa-solid fa-crown"></i></span>
+                </div>
+                <div id="stat-max-donation" class="text-2xl sm:text-3xl font-black text-purple-800 mt-2 tracking-tight">0 đ</div>
+                <div id="stat-max-donor-name" class="text-xs text-purple-700 font-semibold truncate mt-1">Chưa có thông tin</div>
+            </div>
+        </section>
+
+        <!-- COLOR TIERS EXPLANATION & LEGEND BAR -->
+        <section class="glass-panel rounded-2xl p-4 sm:p-5">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 mb-3">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-palette text-pastel-600 text-lg"></i>
+                    <h2 class="text-sm sm:text-base font-bold text-navy-800 uppercase tracking-wide">Quy Ước Định Mức & Hiệu Ứng Màu Sắc Tự Động</h2>
+                </div>
+                <span class="text-xs text-slate-600 italic font-medium"><i class="fa-solid fa-circle-info text-sky-600"></i> Các ô số tiền tự đổi màu & đổi độ sáng tối tùy theo định mức</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                <!-- Tier Purple Badge Legend -->
+                <div onclick="filterByTier('purple')" class="cursor-pointer glass-card rounded-xl p-3 border border-purple-300 hover:border-purple-500 transition-all flex flex-col justify-between shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="w-2.5 h-2.5 rounded-full bg-purple-600 animate-ping"></span>
+                        <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-purple-100 text-purple-800">Cấp Tím</span>
+                    </div>
+                    <div class="mt-2 text-xs font-bold text-center py-1.5 rounded-lg tier-purple shadow-sm">
+                        &gt; 10 Triệu VND
+                    </div>
+                    <div class="text-[11px] text-slate-500 text-center mt-1">Đặc biệt xuất sắc</div>
+                </div>
+
+                <!-- Tier Red Badge Legend -->
+                <div onclick="filterByTier('red')" class="cursor-pointer glass-card rounded-xl p-3 border border-red-300 hover:border-red-500 transition-all flex flex-col justify-between shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></span>
+                        <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-red-100 text-red-800">Cấp Đỏ</span>
+                    </div>
+                    <div class="mt-2 text-xs font-bold text-center py-1.5 rounded-lg tier-red shadow-sm">
+                        = 10 Triệu VND
+                    </div>
+                    <div class="text-[11px] text-slate-500 text-center mt-1">Mức chuẩn 10 triệu</div>
+                </div>
+
+                <!-- Tier Yellow Badge Legend -->
+                <div onclick="filterByTier('yellow')" class="cursor-pointer glass-card rounded-xl p-3 border border-amber-300 hover:border-amber-500 transition-all flex flex-col justify-between shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping"></span>
+                        <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-800">Cấp Vàng</span>
+                    </div>
+                    <div class="mt-2 text-xs font-bold text-center py-1.5 rounded-lg tier-yellow shadow-sm">
+                        5M - &lt;10M VND
+                    </div>
+                    <div class="text-[11px] text-slate-500 text-center mt-1">Tài trợ Vàng</div>
+                </div>
+
+                <!-- Tier Blue Badge Legend -->
+                <div onclick="filterByTier('blue')" class="cursor-pointer glass-card rounded-xl p-3 border border-blue-300 hover:border-blue-500 transition-all flex flex-col justify-between shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping"></span>
+                        <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-blue-100 text-blue-800">Cấp Xanh Lam</span>
+                    </div>
+                    <div class="mt-2 text-xs font-bold text-center py-1.5 rounded-lg tier-blue shadow-sm">
+                        3M - &lt;5M VND
+                    </div>
+                    <div class="text-[11px] text-slate-500 text-center mt-1">Tài trợ Bạc</div>
+                </div>
+
+                <!-- Tier Green Badge Legend -->
+                <div onclick="filterByTier('green')" class="cursor-pointer glass-card rounded-xl p-3 border border-emerald-300 hover:border-emerald-500 transition-all flex flex-col justify-between shadow-sm col-span-2 sm:col-span-1">
+                    <div class="flex items-center justify-between">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-ping"></span>
+                        <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Cấp Xanh Ngọc</span>
+                    </div>
+                    <div class="mt-2 text-xs font-bold text-center py-1.5 rounded-lg tier-green shadow-sm">
+                        1M - &lt;3M VND
+                    </div>
+                    <div class="text-[11px] text-slate-500 text-center mt-1">Tài trợ Đồng</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FILTER BAR & SEARCH CONTROLS -->
+        <section class="glass-panel rounded-2xl p-4 sm:p-5 space-y-4 no-print shadow-sm">
+            <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+                
+                <!-- Live Search Box -->
+                <div class="relative flex-grow max-w-xl">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <input type="text" id="search-input" oninput="renderData()" placeholder="Tìm tên nhà tài trợ, người đại diện, khóa học, quà tặng..." class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-white/90 border border-pastel-300 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-pastel-600 focus:ring-2 focus:ring-pastel-200 transition-all text-sm font-medium">
+                    <button onclick="clearSearch()" id="clear-search-btn" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Dropdown Filters -->
+                <div class="flex flex-wrap items-center gap-2.5">
+                    
+                    <!-- Tier Filter -->
+                    <select id="tier-filter" onchange="renderData()" class="px-3 py-2.5 rounded-xl bg-white/90 border border-pastel-300 text-slate-700 text-xs sm:text-sm font-semibold focus:outline-none focus:border-pastel-600 cursor-pointer">
+                        <option value="all">Tất cả định mức</option>
+                        <option value="purple">Cấp Tím (> 10 triệu)</option>
+                        <option value="red">Cấp Đỏ (= 10 triệu)</option>
+                        <option value="yellow">Cấp Vàng (5M - &lt;10M)</option>
+                        <option value="blue">Cấp Xanh Lam (3M - &lt;5M)</option>
+                        <option value="green">Cấp Xanh Ngọc (1M - &lt;3M)</option>
+                    </select>
+
+                    <!-- Payment Method Filter -->
+                    <select id="method-filter" onchange="renderData()" class="px-3 py-2.5 rounded-xl bg-white/90 border border-pastel-300 text-slate-700 text-xs sm:text-sm font-semibold focus:outline-none focus:border-pastel-600 cursor-pointer">
+                        <option value="all">Tất cả hình thức</option>
+                        <option value="Tiền mặt">Tiền mặt</option>
+                        <option value="Chuyển vào TK trường">Chuyển vào TK trường</option>
+                    </select>
+
+                    <!-- Sort Order Dropdown -->
+                    <select id="sort-order" onchange="renderData()" class="px-3 py-2.5 rounded-xl bg-white/90 border border-pastel-300 text-slate-700 text-xs sm:text-sm font-semibold focus:outline-none focus:border-pastel-600 cursor-pointer">
+                        <option value="default">Thứ tự mặc định (STT)</option>
+                        <option value="desc">Số tiền: Cao → Thấp</option>
+                        <option value="asc">Số tiền: Thấp → Cao</option>
+                        <option value="name">Tên A → Z</option>
+                    </select>
+
+                    <!-- View Switcher (Table vs Grid) -->
+                    <div class="flex items-center rounded-xl bg-white border border-pastel-300 p-1">
+                        <button id="view-table-btn" onclick="setViewMode('table')" title="Bảng danh sách" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-pastel-600 text-white shadow-sm">
+                            <i class="fa-solid fa-table-list mr-1"></i> Bảng
+                        </button>
+                        <button id="view-grid-btn" onclick="setViewMode('grid')" title="Lưới thẻ vinh danh" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-slate-900">
+                            <i class="fa-solid fa-table-cells-large mr-1"></i> Thẻ
+                        </button>
+                    </div>
+
+                    <!-- Reset Button -->
+                    <button onclick="resetFilters()" title="Đặt lại bộ lọc" class="p-2.5 rounded-xl bg-white hover:bg-pastel-100 text-slate-600 transition-all border border-pastel-300">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Status Bar -->
+            <div id="filter-status-bar" class="flex items-center justify-between text-xs text-slate-600 pt-2 border-t border-pastel-200 font-medium">
+                <span id="results-count-text">Đang hiển thị 16/16 bản ghi</span>
+                <button onclick="resetDataToDefault()" class="hover:underline text-pastel-700 font-bold flex items-center gap-1">
+                    <i class="fa-solid fa-arrows-rotate text-[10px]"></i> Khôi phục danh sách gốc
+                </button>
+            </div>
+        </section>
+
+        <!-- DATA DISPLAY AREA: ELEGANT TABLE VIEW -->
+        <section id="table-view-wrapper" class="glass-panel rounded-2xl overflow-hidden shadow-md">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-800 border-collapse">
+                    <thead>
+                        <tr class="bg-gradient-to-r from-pastel-100 via-sky-100 to-indigo-100 border-b border-pastel-300 text-xs uppercase font-extrabold text-navy-800 tracking-wider">
+                            <th class="py-4 px-3 text-center w-12">STT</th>
+                            <th class="py-4 px-4 w-24">Năm Tài Trợ</th>
+                            <th class="py-4 px-5">Tên Tổ Chức / Cá Nhân Tài Trợ</th>
+                            <th class="py-4 px-5">Thông Tin / Niên Khóa</th>
+                            <th class="py-4 px-5 text-right font-serif-title">Số Tiền (VND)</th>
+                            <th class="py-4 px-5">Vật Phẩm Tài Trợ</th>
+                            <th class="py-4 px-4 text-center">Ghi Chú / Phương Thức</th>
+                            <th class="py-4 px-3 text-center no-print">Xem Thư</th>
+                        </tr>
+                    </thead>
+                    <tbody id="donors-table-body" class="divide-y divide-pastel-200/80 font-normal bg-white/60">
+                        <!-- Dynamic rows populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- DATA DISPLAY AREA: GRID CARD VIEW -->
+        <section id="grid-view-wrapper" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic cards populated via JS -->
+        </section>
+
+        <!-- EMPTY STATE MESSAGE -->
+        <div id="empty-state" class="hidden glass-panel rounded-2xl p-12 text-center">
+            <i class="fa-solid fa-folder-open text-5xl text-pastel-400 mb-3"></i>
+            <h3 class="text-lg font-bold text-navy-800">Không tìm thấy dữ liệu nhà tài trợ</h3>
+            <p class="text-sm text-slate-500 mt-1">Vui lòng kiểm tra lại từ khóa tìm kiếm hoặc bỏ chọn các bộ lọc.</p>
+            <button onclick="resetFilters()" class="mt-4 px-4 py-2 rounded-xl bg-pastel-600 text-white font-bold text-xs uppercase tracking-wider hover:bg-pastel-700 transition-all">
+                Xóa bộ lọc
+            </button>
+        </div>
+
+    </main>
+
+    <!-- MODAL: ADD NEW DONOR -->
+    <div id="add-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl w-full max-w-lg overflow-hidden border border-pastel-300 shadow-2xl">
+            <div class="bg-gradient-to-r from-pastel-600 to-navy-800 px-6 py-4 flex items-center justify-between text-white">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-hand-holding-heart text-xl text-amber-300"></i>
+                    <h3 class="font-serif-title font-bold text-lg">Ghi Nhận Tài Trợ Mới</h3>
+                </div>
+                <button onclick="closeAddModal()" class="text-white/80 hover:text-white text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="add-donor-form" onsubmit="handleAddDonor(event)" class="p-6 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Năm tài trợ *</label>
+                        <input type="text" id="form-date" placeholder="Ví dụ: 8/2026" required class="w-full px-3 py-2 rounded-xl border border-slate-300 text-slate-800 text-sm focus:border-pastel-600 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Hình thức tài trợ *</label>
+                        <select id="form-method" required class="w-full px-3 py-2 rounded-xl border border-slate-300 text-slate-800 text-sm focus:border-pastel-600 focus:outline-none">
+                            <option value="Tiền mặt">Tiền mặt</option>
+                            <option value="Chuyển vào TK trường">Chuyển vào TK trường</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Tên tổ chức / Cá nhân tài trợ *</label>
+                    <input type="text" id="form-name" placeholder="Ví dụ: Lớp A1 khóa 2010-2013 hoặc Ngô Thị Vân" required class="w-full px-3 py-2 rounded-xl border border-slate-300 text-slate-800 text-sm focus:border-pastel-600 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Thông tin đại diện / Niên khóa</label>
+                    <input type="text" id="form-info" placeholder="Ví dụ: ĐĐ: Lê Duy Lộc (Nếu rỗng sẽ hiện '-')" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-slate-800 text-sm focus:border-pastel-600 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Số tiền tài trợ (VND) *</label>
+                    <input type="number" id="form-money" min="0" step="100000" placeholder="Ví dụ: 10000000" required oninput="previewTierBadge()" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-slate-800 text-sm focus:border-pastel-600 focus:outline-none font-mono">
+                    <div class="mt-2 text-xs flex items-center justify-between px-3 py-2 rounded-xl bg-pastel-50 border border-pastel-200">
+                        <span class="text-slate-600 font-medium">Xem trước cấp màu:</span>
+                        <span id="tier-preview-badge" class="px-3 py-1 rounded-lg text-xs font-bold tier-default">Mặc định</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Vật phẩm tài trợ / Quà tặng</label>
+                    <input type="text" id="form-item" placeholder="Ví dụ: 01 bộ ấm chén (Nếu trống sẽ hiện 'Không có')" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-slate-800 text-sm focus:border-pastel-600 focus:outline-none">
+                </div>
+
+                <div class="flex items-center justify-end gap-3 pt-3 border-t border-slate-200">
+                    <button type="button" onclick="closeAddModal()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold">Hủy</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-pastel-600 hover:bg-pastel-700 text-white font-bold text-sm shadow-md">Lưu Bản Ghi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: CERTIFICATE OF GRATITUDE (THƯ CẢM ƠN DANH DỰ) -->
+    <div id="detail-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+        <div class="bg-gradient-to-b from-white via-sky-50 to-indigo-50 rounded-3xl w-full max-w-lg overflow-hidden border-4 border-pastel-300 shadow-2xl relative p-6 sm:p-8 text-center">
+            
+            <button onclick="closeDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg w-8 h-8 rounded-full bg-white/80 flex items-center justify-center shadow-sm">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Decorative Certificate Box -->
+            <div class="border-2 border-dashed border-pastel-400 p-6 rounded-2xl relative bg-white/80">
+                <!-- Top Logo -->
+                <div class="w-20 h-20 mx-auto rounded-xl p-1 bg-white shadow-md border border-pastel-200 mb-2">
+                    <img src="aaaa_2.jpg" alt="Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/dbeafe/1e3a8a?text=BT';">
+                </div>
+
+                <div class="text-xs uppercase font-extrabold text-pastel-700 tracking-widest">Sổ Vàng Truyền Thống</div>
+                <h2 class="text-xl sm:text-2xl font-serif-title font-bold text-navy-800">THƯ TRI ÂN DANH DỰ</h2>
+                <div class="text-xs font-semibold text-pastel-600 mb-3">Lễ Kỷ Niệm 60 Năm Thành Lập Trường THPT Bá Thước</div>
+
+                <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mb-4"></div>
+
+                <p class="text-xs text-slate-600 italic mb-4">Trân trọng vinh danh tấm lòng vàng hảo tâm đóng góp xây dựng nhà trường</p>
+
+                <!-- Donor Card Info inside Modal -->
+                <div class="space-y-3 bg-pastel-50/90 rounded-xl p-4 border border-pastel-200 text-left">
+                    <div class="flex justify-between items-center text-xs text-slate-500 font-semibold">
+                        <span>STT: <strong id="modal-tt" class="text-pastel-700">#01</strong></span>
+                        <span>Năm: <strong id="modal-date" class="text-slate-800">8/2026</strong></span>
+                    </div>
+
+                    <div>
+                        <div class="text-[10px] uppercase text-slate-400 font-bold">Nhà Tài Trợ:</div>
+                        <div id="modal-name" class="text-base sm:text-lg font-bold text-navy-800 font-serif-title">Lớp A1 Khóa 2010-2013</div>
+                    </div>
+
+                    <div>
+                        <div class="text-[10px] uppercase text-slate-400 font-bold">Thông tin đại diện:</div>
+                        <div id="modal-info" class="text-xs font-medium text-slate-700">ĐĐ: Lê Duy Lộc</div>
+                    </div>
+
+                    <!-- Pulsing Tier money box -->
+                    <div class="pt-1">
+                        <div class="text-[10px] uppercase text-slate-400 font-bold mb-1">Số Tiền Tài Trợ:</div>
+                        <div id="modal-money-cell" class="text-center py-2.5 px-4 rounded-xl text-xl font-black font-mono shadow-md">
+                            13.000.000 đ
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+                        <div>
+                            <span class="text-slate-400 block text-[10px]">Vật Phẩm:</span>
+                            <span id="modal-item" class="font-bold text-emerald-700">Không có</span>
+                        </div>
+                        <div>
+                            <span class="text-slate-400 block text-[10px]">Phương Thức:</span>
+                            <span id="modal-method" class="font-bold text-sky-700">Tiền mặt</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 flex justify-center gap-3 no-print">
+                    <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-pastel-600 text-white font-bold text-xs uppercase tracking-wider hover:bg-pastel-700 transition-all shadow-sm">
+                        <i class="fa-solid fa-print mr-1"></i> In Thư Tri Ân
+                    </button>
+                    <button onclick="closeDetailModal()" class="px-4 py-2 rounded-xl bg-slate-200 text-slate-700 font-bold text-xs uppercase tracking-wider hover:bg-slate-300 transition-all">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER SECTION -->
+    <footer class="glass-panel border-t border-pastel-200 py-6 px-4 text-center text-xs text-slate-600 relative z-10 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+                <img src="aaaa_2.jpg" alt="Mini Logo" class="w-6 h-6 object-contain rounded bg-white p-0.5" onerror="this.onerror=null; this.src='https://placehold.co/50x50/dbeafe/1e3a8a?text=BT';">
+                <span class="font-bold text-navy-800">Trường THPT Bá Thước - Thanh Hóa</span>
+            </div>
+            <div>
+                <span>Cổng thông tin tài trợ Lễ Kỷ Niệm 60 Năm Thành Lập (1966 - 2026)</span>
+            </div>
+            <div class="text-pastel-700 font-serif-title font-bold italic">
+                Tự hào truyền thống - Vững bước tương lai
+            </div>
+        </div>
+    </footer>
+
+    <!-- APPLICATION JAVASCRIPT LOGIC -->
+    <script>
+        // Default official donor records
+        const INITIAL_DONORS = [
+            { id: 1, tt: 1, date: "7/2026", name: "Khóa học 2003-2006", info: "ĐĐ: Dương Khắc Bảy", money: 10000000, item: "01 bộ ấm chén", method: "Tiền mặt" },
+            { id: 2, tt: 2, date: "7/2026", name: "Lớp A8 khóa 2013-2016", info: "ĐĐ: Nguyễn Hồng Nhung", money: 10000000, item: "02 ghế đá", method: "Tiền mặt" },
+            { id: 3, tt: 3, date: "8/2026", name: "Ngô Thị Vân", info: "Cá nhân Khóa 1968-1971", money: 10000000, item: null, method: "Chuyển vào TK trường" },
+            { id: 4, tt: 4, date: "8/2026", name: "Nguyễn Thị Lương", info: "Cá nhân Khóa 1968-1971", money: 10000000, item: null, method: "Chuyển vào TK trường" },
+            { id: 5, tt: 5, date: "8/2026", name: "Lớp A1 khoá 2007-2010", info: "ĐĐ: Trương Công Điệp", money: 10000000, item: null, method: "Tiền mặt" },
+            { id: 6, tt: 6, date: "8/2026", name: "Lớp A1 khoá 2018-2021", info: "ĐĐ: Bùi Phương Thảo", money: 4000000, item: null, method: "Tiền mặt" },
+            { id: 7, tt: 7, date: "8/2026", name: "Lớp A4 khoá 2016-2019", info: "ĐĐ: Ng Thị Phương Thảo", money: 3600000, item: null, method: "Tiền mặt" },
+            { id: 8, tt: 8, date: "8/2026", name: "Lớp A3 khóa 2010-2013", info: "ĐĐ: Nguyễn Thị Mỹ", money: 4000000, item: null, method: "Chuyển vào TK trường" },
+            { id: 9, tt: 9, date: "8/2026", name: "Em: Nguyễn Thị Thương", info: "Cựu học sinh lớp A1 (Niên khóa: 2004-2007)", money: 5000000, item: null, method: "Chuyển vào TK trường" },
+            { id: 10, tt: 10, date: "8/2026", name: "Em: Nguyễn Thùy Dung", info: "Cựu học sinh lớp A1 (Niên khóa: 2004-2007)", money: 3000000, item: null, method: "Chuyển vào TK trường" },
+            { id: 11, tt: 11, date: "9/2026", name: "Lớp A1 khóa 2010-2013", info: "ĐĐ: Lê Duy Lộc", money: 13000000, item: null, method: "Tiền mặt" },
+            { id: 12, tt: 12, date: "9/2026", name: "Lớp A1 khóa 2016-2019", info: "ĐĐ: Nguyễn Thị Phương Thảo", money: 5000000, item: null, method: "Tiền mặt" },
+            { id: 13, tt: 13, date: "9/2026", name: "Lớp A1 khóa 2017-2020", info: "ĐĐ: Đặng Trung Kiên", money: 6000000, item: null, method: "Tiền mặt" },
+            { id: 14, tt: 14, date: "9/2026", name: "Lớp A5 khóa 2010-2013", info: "ĐĐ: Trương Văn Quý", money: 7000000, item: null, method: "Tiền mặt" },
+            { id: 15, tt: 15, date: "9/2026", name: "Em: Nguyễn Xuân Quyền", info: "Cựu học sinh lớp A5 (Niên khóa: 2003-2006)", money: 2000000, item: null, method: "Tiền mặt" },
+            { id: 16, tt: 16, date: "9/2026", name: "Lớp A1 khóa 2013-2016", info: "ĐĐ: Lê Huy Thu", money: 10000000, item: null, method: "Tiền mặt" }
+        ];
+
+        let donorList = [];
+        let viewMode = 'table';
+
+        // Window Onload Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            loadStoredData();
+            initCanvasBackground();
+            renderData();
+        });
+
+        function loadStoredData() {
+            const stored = localStorage.getItem('bt_60yr_pastel_donors');
+            if (stored) {
+                try {
+                    donorList = JSON.parse(stored);
+                } catch(e) {
+                    donorList = JSON.parse(JSON.stringify(INITIAL_DONORS));
+                }
+            } else {
+                donorList = JSON.parse(JSON.stringify(INITIAL_DONORS));
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('bt_60yr_pastel_donors', JSON.stringify(donorList));
+        }
+
+        function resetDataToDefault() {
+            if (confirm('Khôi phục lại danh sách tài trợ 16 mục chuẩn ban đầu?')) {
+                donorList = JSON.parse(JSON.stringify(INITIAL_DONORS));
+                saveData();
+                renderData();
+            }
+        }
+
+        /**
+         * Dynamic Tier Calculation Rules:
+         * > 10,000,000 VND -> PURPLE tier
+         * == 10,000,000 VND -> RED tier
+         * >= 5,000,000 VND -> YELLOW tier
+         * >= 3,000,000 VND -> BLUE tier
+         * >= 1,000,000 VND -> GREEN tier
+         * < 1,000,000 VND -> DEFAULT tier
+         */
+        function getTierInfo(amount) {
+            const num = Number(amount) || 0;
+            if (num > 10000000) {
+                return { key: 'purple', class: 'tier-purple', label: 'Cấp Tím (>10M)' };
+            } else if (num === 10000000) {
+                return { key: 'red', class: 'tier-red', label: 'Cấp Đỏ (=10M)' };
+            } else if (num >= 5000000) {
+                return { key: 'yellow', class: 'tier-yellow', label: 'Cấp Vàng (5M-10M)' };
+            } else if (num >= 3000000) {
+                return { key: 'blue', class: 'tier-blue', label: 'Cấp Xanh Lam (3M-5M)' };
+            } else if (num >= 1000000) {
+                return { key: 'green', class: 'tier-green', label: 'Cấp Xanh Ngọc (1M-3M)' };
+            } else {
+                return { key: 'default', class: 'tier-default', label: 'Tiêu Chuẩn' };
+            }
+        }
+
+        function formatVND(amount) {
+            if (amount === null || amount === undefined || isNaN(amount)) return "0 đ";
+            return new Intl.NumberFormat('vi-VN').format(amount) + " đ";
+        }
+
+        // Guarantee no blank cell ("if null don't left a blank")
+        function safeValue(val, fallback = "-") {
+            if (val === null || val === undefined || String(val).trim() === "") {
+                return fallback;
+            }
+            return String(val).trim();
+        }
+
+        function renderData() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+            const tierFilter = document.getElementById('tier-filter').value;
+            const methodFilter = document.getElementById('method-filter').value;
+            const sortOrder = document.getElementById('sort-order').value;
+
+            document.getElementById('clear-search-btn').classList.toggle('hidden', searchTerm === "");
+
+            let filtered = donorList.filter(item => {
+                const tierInfo = getTierInfo(item.money);
+                if (tierFilter !== 'all' && tierInfo.key !== tierFilter) {
+                    return false;
+                }
+
+                if (methodFilter !== 'all' && safeValue(item.method) !== methodFilter) {
+                    return false;
+                }
+
+                if (searchTerm !== "") {
+                    const nameMatch = safeValue(item.name).toLowerCase().includes(searchTerm);
+                    const infoMatch = safeValue(item.info).toLowerCase().includes(searchTerm);
+                    const itemMatch = safeValue(item.item).toLowerCase().includes(searchTerm);
+                    const dateMatch = safeValue(item.date).toLowerCase().includes(searchTerm);
+                    const methodMatch = safeValue(item.method).toLowerCase().includes(searchTerm);
+                    return nameMatch || infoMatch || itemMatch || dateMatch || methodMatch;
+                }
+
+                return true;
+            });
+
+            // Sorting
+            if (sortOrder === 'desc') {
+                filtered.sort((a, b) => b.money - a.money);
+            } else if (sortOrder === 'asc') {
+                filtered.sort((a, b) => a.money - b.money);
+            } else if (sortOrder === 'name') {
+                filtered.sort((a, b) => safeValue(a.name).localeCompare(safeValue(b.name), 'vi'));
+            } else {
+                filtered.sort((a, b) => a.tt - b.tt);
+            }
+
+            updateStatistics();
+
+            document.getElementById('results-count-text').innerText = `Đang hiển thị ${filtered.length}/${donorList.length} bản ghi`;
+
+            const emptyState = document.getElementById('empty-state');
+            const tableWrapper = document.getElementById('table-view-wrapper');
+            const gridWrapper = document.getElementById('grid-view-wrapper');
+
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+                tableWrapper.classList.add('hidden');
+                gridWrapper.classList.add('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            if (viewMode === 'table') {
+                tableWrapper.classList.remove('hidden');
+                gridWrapper.classList.add('hidden');
+                renderTableView(filtered);
+            } else {
+                tableWrapper.classList.add('hidden');
+                gridWrapper.classList.remove('hidden');
+                renderGridView(filtered);
+            }
+        }
+
+        function renderTableView(items) {
+            const tbody = document.getElementById('donors-table-body');
+            tbody.innerHTML = items.map((item) => {
+                const tier = getTierInfo(item.money);
+                const nameStr = safeValue(item.name, "Không rõ");
+                const infoStr = safeValue(item.info, "-");
+                const itemStr = safeValue(item.item, "Không có");
+                const methodStr = safeValue(item.method, "Không có");
+                const dateStr = safeValue(item.date, "-");
+
+                return `
+                    <tr class="hover:bg-pastel-100/60 transition-colors group">
+                        <td class="py-3.5 px-3 text-center font-bold text-slate-500 group-hover:text-pastel-700">
+                            ${item.tt}
+                        </td>
+                        <td class="py-3.5 px-4 text-xs font-bold text-slate-600">
+                            ${dateStr}
+                        </td>
+                        <td class="py-3.5 px-5 font-bold text-navy-800 hover:text-pastel-600 transition-colors">
+                            <button onclick="openDetailModal(${item.id})" class="text-left hover:underline">
+                                ${nameStr}
+                            </button>
+                        </td>
+                        <td class="py-3.5 px-5 text-slate-600 text-xs font-medium">
+                            ${infoStr}
+                        </td>
+                        <!-- Money cell with rounded corners & animated pulsating color -->
+                        <td class="py-3.5 px-5 text-right font-mono">
+                            <span class="inline-block px-3 py-1.5 rounded-xl text-sm font-black ${tier.class} shadow-sm">
+                                ${formatVND(item.money)}
+                            </span>
+                        </td>
+                        <td class="py-3.5 px-5 text-xs font-semibold">
+                            ${itemStr !== 'Không có' ? `<span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-300 inline-flex items-center gap-1 shadow-sm"><i class="fa-solid fa-gift text-[10px]"></i> ${itemStr}</span>` : `<span class="text-slate-400 font-normal">Không có</span>`}
+                        </td>
+                        <td class="py-3.5 px-4 text-center text-xs font-semibold">
+                            <span class="px-2.5 py-1 rounded-lg ${methodStr.includes('Tiền mặt') ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-sky-100 text-sky-800 border border-sky-300'} inline-block">
+                                ${methodStr}
+                            </span>
+                        </td>
+                        <td class="py-3.5 px-3 text-center no-print">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <button onclick="openDetailModal(${item.id})" title="Xem thư vinh danh" class="p-1.5 rounded-lg bg-white hover:bg-pastel-600 hover:text-white text-slate-600 border border-pastel-300 transition-all text-xs shadow-sm">
+                                    <i class="fa-solid fa-certificate"></i>
+                                </button>
+                                <button onclick="deleteDonor(${item.id})" title="Xóa" class="p-1.5 rounded-lg bg-white hover:bg-red-600 hover:text-white text-slate-400 border border-slate-200 transition-all text-xs">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderGridView(items) {
+            const grid = document.getElementById('grid-view-wrapper');
+            grid.innerHTML = items.map(item => {
+                const tier = getTierInfo(item.money);
+                const nameStr = safeValue(item.name, "Không rõ");
+                const infoStr = safeValue(item.info, "-");
+                const itemStr = safeValue(item.item, "Không có");
+                const methodStr = safeValue(item.method, "Không có");
+                const dateStr = safeValue(item.date, "-");
+
+                return `
+                    <div class="glass-card rounded-2xl p-5 border border-pastel-300 hover:border-pastel-500 transition-all flex flex-col justify-between shadow-sm group">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <span class="text-xs font-extrabold text-pastel-800 px-2.5 py-0.5 rounded-md bg-pastel-100 border border-pastel-300">
+                                    STT: #${item.tt}
+                                </span>
+                                <span class="text-xs text-slate-500 font-semibold">
+                                    <i class="fa-regular fa-calendar mr-1"></i>${dateStr}
+                                </span>
+                            </div>
+
+                            <h3 class="font-serif-title font-bold text-base text-navy-800 group-hover:text-pastel-600 transition-colors mb-1">
+                                ${nameStr}
+                            </h3>
+                            <p class="text-xs text-slate-600 mb-4 font-medium">${infoStr}</p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <!-- Money box with pulsating tier animation -->
+                            <div class="p-3 rounded-2xl text-center shadow-sm ${tier.class}">
+                                <div class="text-[10px] uppercase tracking-wider opacity-90 mb-0.5 font-bold">Số Tiền Tài Trợ</div>
+                                <div class="text-xl font-black font-mono">${formatVND(item.money)}</div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                <div class="bg-white/80 p-2 rounded-xl border border-pastel-200">
+                                    <span class="text-slate-400 block text-[10px] font-bold uppercase">Vật Phẩm:</span>
+                                    <span class="font-semibold ${itemStr !== 'Không có' ? 'text-emerald-700' : 'text-slate-400'} truncate block">
+                                        ${itemStr}
+                                    </span>
+                                </div>
+                                <div class="bg-white/80 p-2 rounded-xl border border-pastel-200">
+                                    <span class="text-slate-400 block text-[10px] font-bold uppercase">Phương Thức:</span>
+                                    <span class="font-semibold text-sky-700 truncate block">
+                                        ${methodStr}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 flex gap-2 no-print">
+                                <button onclick="openDetailModal(${item.id})" class="w-full py-2 rounded-xl bg-white hover:bg-pastel-600 hover:text-white text-slate-700 border border-pastel-300 text-xs font-bold transition-all shadow-sm">
+                                    <i class="fa-solid fa-award mr-1"></i> Xem Vinh Danh
+                                </button>
+                                <button onclick="deleteDonor(${item.id})" class="px-3 py-2 rounded-xl bg-white hover:bg-red-600 hover:text-white text-slate-400 border border-slate-200 text-xs transition-all">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateStatistics() {
+            let totalMoney = 0;
+            let totalItemsCount = 0;
+            let maxDonation = 0;
+            let maxDonorName = "Chưa có";
+
+            donorList.forEach(item => {
+                const m = Number(item.money) || 0;
+                totalMoney += m;
+                if (m > maxDonation) {
+                    maxDonation = m;
+                    maxDonorName = safeValue(item.name, "Chưa có");
+                }
+
+                const itemStr = safeValue(item.item, "");
+                if (itemStr !== "" && itemStr !== "Không có" && itemStr !== "-") {
+                    totalItemsCount++;
+                }
+            });
+
+            document.getElementById('stat-total-money').innerText = formatVND(totalMoney);
+            document.getElementById('stat-total-donors').innerText = donorList.length;
+            document.getElementById('stat-total-items').innerText = `${totalItemsCount} hiện vật`;
+            document.getElementById('stat-max-donation').innerText = formatVND(maxDonation);
+            document.getElementById('stat-max-donor-name').innerText = maxDonorName;
+        }
+
+        function setViewMode(mode) {
+            viewMode = mode;
+            const tableBtn = document.getElementById('view-table-btn');
+            const gridBtn = document.getElementById('view-grid-btn');
+
+            if (mode === 'table') {
+                tableBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-pastel-600 text-white shadow-sm';
+                gridBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-slate-900';
+            } else {
+                gridBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-pastel-600 text-white shadow-sm';
+                tableBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-slate-900';
+            }
+            renderData();
+        }
+
+        function clearSearch() {
+            document.getElementById('search-input').value = "";
+            renderData();
+        }
+
+        function filterByTier(tierKey) {
+            document.getElementById('tier-filter').value = tierKey;
+            renderData();
+        }
+
+        function resetFilters() {
+            document.getElementById('search-input').value = "";
+            document.getElementById('tier-filter').value = "all";
+            document.getElementById('method-filter').value = "all";
+            document.getElementById('sort-order').value = "default";
+            renderData();
+        }
+
+        function openAddModal() {
+            document.getElementById('add-modal').classList.remove('hidden');
+            document.getElementById('add-modal').classList.add('flex');
+            document.getElementById('form-date').value = "9/2026";
+            previewTierBadge();
+        }
+
+        function closeAddModal() {
+            document.getElementById('add-modal').classList.add('hidden');
+            document.getElementById('add-modal').classList.remove('flex');
+            document.getElementById('add-donor-form').reset();
+        }
+
+        function previewTierBadge() {
+            const moneyVal = Number(document.getElementById('form-money').value) || 0;
+            const tier = getTierInfo(moneyVal);
+            const badge = document.getElementById('tier-preview-badge');
+            badge.className = `px-3 py-1 rounded-lg text-xs font-bold ${tier.class}`;
+            badge.innerText = tier.label;
+        }
+
+        function handleAddDonor(event) {
+            event.preventDefault();
+
+            const date = document.getElementById('form-date').value.trim();
+            const name = document.getElementById('form-name').value.trim();
+            const info = document.getElementById('form-info').value.trim();
+            const money = Number(document.getElementById('form-money').value) || 0;
+            const item = document.getElementById('form-item').value.trim();
+            const method = document.getElementById('form-method').value;
+
+            const maxTT = donorList.reduce((max, d) => (d.tt > max ? d.tt : max), 0);
+            const newRecord = {
+                id: Date.now(),
+                tt: maxTT + 1,
+                date: date || "9/2026",
+                name: name,
+                info: info || null,
+                money: money,
+                item: item || null,
+                method: method
+            };
+
+            donorList.push(newRecord);
+            saveData();
+            renderData();
+            closeAddModal();
+        }
+
+        function deleteDonor(id) {
+            if (confirm('Bạn có chắc chắn muốn xóa bản ghi này?')) {
+                donorList = donorList.filter(d => d.id !== id);
+                saveData();
+                renderData();
+            }
+        }
+
+        function openDetailModal(id) {
+            const donor = donorList.find(d => d.id === id);
+            if (!donor) return;
+
+            const tier = getTierInfo(donor.money);
+
+            document.getElementById('modal-tt').innerText = `#${donor.tt}`;
+            document.getElementById('modal-date').innerText = safeValue(donor.date, "8/2026");
+            document.getElementById('modal-name').innerText = safeValue(donor.name, "Không rõ");
+            document.getElementById('modal-info').innerText = safeValue(donor.info, "Không có thông tin đại diện");
+            document.getElementById('modal-item').innerText = safeValue(donor.item, "Không có");
+            document.getElementById('modal-method').innerText = safeValue(donor.method, "Tiền mặt");
+
+            const moneyCell = document.getElementById('modal-money-cell');
+            moneyCell.className = `text-center py-2.5 px-4 rounded-xl text-xl font-black font-mono shadow-sm ${tier.class}`;
+            moneyCell.innerText = formatVND(donor.money);
+
+            document.getElementById('detail-modal').classList.remove('hidden');
+            document.getElementById('detail-modal').classList.add('flex');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+            document.getElementById('detail-modal').classList.remove('flex');
+        }
+
+        function exportToCSV() {
+            let csvContent = "\uFEFF"; // UTF-8 BOM
+            csvContent += "STT,Nam Tai Tro,Ten Nha Tai Tro,Thong Tin Dai Dien,So Tien (VND),Vat Pham,Phuong Thuc\n";
+
+            donorList.forEach(item => {
+                const row = [
+                    item.tt,
+                    `"${safeValue(item.date).replace(/"/g, '""')}"`,
+                    `"${safeValue(item.name).replace(/"/g, '""')}"`,
+                    `"${safeValue(item.info).replace(/"/g, '""')}"`,
+                    item.money,
+                    `"${safeValue(item.item).replace(/"/g, '""')}"`,
+                    `"${safeValue(item.method).replace(/"/g, '""')}"`
+                ];
+                csvContent += row.join(",") + "\n";
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", "Danh_Sach_Tai_Tro_THPT_Ba_Thuoc_60_Nam.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // SOFT BLUE PASTEL BACKGROUND CANVAS
+        function initCanvasBackground() {
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const particles = [];
+            const particleCount = Math.floor((width * height) / 15000);
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 4 + 1.5,
+                    color: Math.random() > 0.5 ? 'rgba(56, 189, 248, ' : 'rgba(129, 140, 248, ',
+                    alpha: Math.random() * 0.4 + 0.1,
+                    vx: (Math.random() - 0.5) * 0.25,
+                    vy: (Math.random() - 0.5) * 0.25,
+                    pulseSpeed: Math.random() * 0.015 + 0.005
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+
+                // Pastel soft blue background gradient
+                const gradient = ctx.createLinearGradient(0, 0, width, height);
+                gradient.addColorStop(0, '#f0f7ff');
+                gradient.addColorStop(0.5, '#e0f2fe');
+                gradient.addColorStop(1, '#dbeafe');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+
+                // Floating soft pastel bokeh light bubbles
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0) p.x = width;
+                    if (p.x > width) p.x = 0;
+                    if (p.y < 0) p.y = height;
+                    if (p.y > height) p.y = 0;
+
+                    p.alpha += Math.sin(Date.now() * p.pulseSpeed) * 0.003;
+                    const currentAlpha = Math.max(0.05, Math.min(0.5, p.alpha));
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color + currentAlpha + ')';
+                    ctx.shadowBlur = p.radius * 3;
+                    ctx.shadowColor = p.color + '0.4)';
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+    </script>
+</body>
+</html>
